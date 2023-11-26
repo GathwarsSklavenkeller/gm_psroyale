@@ -1,0 +1,8 @@
+"superkillers"
+{
+	"base"		"base"
+	"title"		"PietSmiet Royale"
+	"maps"		"^gm_"
+	"category"	"other"
+	"menusystem"	"1"
+}

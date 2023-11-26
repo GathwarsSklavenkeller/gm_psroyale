@@ -1,0 +1,6 @@
+ENT.Type = "anim"
+ENT.PrintName		= "FOOD HOTDOG"
+ENT.Author			= "DasDarki"
+ENT.Contact			= "none"
+ENT.Purpose			= "none"
+ENT.Instructions	= "none"
