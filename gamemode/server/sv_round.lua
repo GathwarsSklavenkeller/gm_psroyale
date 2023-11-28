@@ -23,8 +23,9 @@ function Round.Start()
 
     SetGlobalInt("PSR_GameState", RoundState.IN_PROGRESS)
 
-    local spawnPoint = Vector(table.Random(SPAWN_PLAYER), table.Random(SPAWN_PLAYER), Z_POINT)
     for _, ply in pairs(players) do
+        local spawnPoint = Vector(table.Random(SPAWN_PLAYER), table.Random(SPAWN_PLAYER), Z_POINT)
+
         UnmakeSpectator(ply)
         ResetFoods(ply)
 
@@ -126,6 +127,8 @@ function Round.HandleDeath(ply, attacker, dmg)
 
     ply:DropInventory()
     ply:DropKevlar()
+    ply:StopSound("low_stamina_breath")
+    ply:StopSound("player/suit_sprint.wav")
     DropFoods(ply)
     MakeSpectator(ply, attacker)
 

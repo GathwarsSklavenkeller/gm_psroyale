@@ -1,7 +1,7 @@
 local MAX_STAMINA = 200
 local STAMINA_REGEN_STANDING = 0.4  -- Schnellere Regeneration im Stehen
-local STAMINA_REGEN_WALKING = 0.1   -- Langsamere Regeneration beim Gehen
-local STAMINA_DRAIN_SPRINTING = 0.3 -- Weniger Ausdauerverlust beim Sprinten
+local STAMINA_REGEN_WALKING = 0.2   -- Langsamere Regeneration beim Gehen
+local STAMINA_DRAIN_SPRINTING = 0.25 -- Weniger Ausdauerverlust beim Sprinten
 local STAMINA_DRAIN_SWIMMING = 0.2  -- Weniger Ausdauerverlust beim Schwimmen
 local VELO_FOR_REGEN = MoveSpeed.WALKING -- Geschwindigkeitsgrenze für Regeneration
 

@@ -99,8 +99,8 @@ local KEVLARS = {
 
 
 local ATTACHMENT_PERCENT = 25
-local AMMO_PERCENT = 35
-local FOOD_PERCENT = 40
+local AMMO_PERCENT = 70
+local FOOD_PERCENT = 50
 
 local MIN_LOOT_PER_SPAWN = 1
 local MAX_LOOT_PER_SPAWN = 3

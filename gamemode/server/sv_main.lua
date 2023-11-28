@@ -26,10 +26,6 @@ concommand.Add("pos", function(ply, cmd, args)
     print(pos.x, pos.y, pos.z)
 end)
 
-function GM:EntityTakeDamage(target, dmg)
-    print(target:GetName(), dmg:GetDamage(), dmg:GetAttacker():GetName())
-end
-
 function GM:PlayerCanSeePlayersChat(text, teamOnly, listener, speaker)
     if speaker:Team() == TeamID.PLAYER then
         return false
@@ -44,6 +40,10 @@ function GM:PlayerFootstep(ply, pos, foot, sound, volume, filter)
     end
 
     return true
+end
+
+function GM:AllowPlayerPickup(ply, ent)
+    return false
 end
 
 function GM:GetFallDamage( ply, speed )

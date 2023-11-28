@@ -6,10 +6,10 @@ local INITIAL_INNER_ZONE_RADIUS = 21701.06
 local MINIMUM_ZONE_RADIUS = 100
 
 -- Dauer der Gnadenperiode am Anfang und zwischen den Schrumpfphasen in Sekunden.
-local GRACE_PERIOD_DURATION = 180
+local GRACE_PERIOD_DURATION = 300
 
 -- Dauer zwischen den Schrumpfphasen nach der anfänglichen Gnadenperiode in Sekunden.
-local BETWEEN_ROUNDS_DURATION = 120
+local BETWEEN_ROUNDS_DURATION = 180
 
 -- Zeitdauer in Sekunden, in der die Zone von ihrem aktuellen Radius auf den nächsten schrumpft.
 local SHRINK_DURATION = 60
@@ -34,6 +34,9 @@ local DAMAGE_INTERVAL = 5
 
 -- Ob der Mittelpunkt der nächsten Zone außerhalb der aktuellen Zone liegen kann.
 local CAN_NEW_ZONE_CENTER_BE_OUTSIDE_CURRENT_ZONE = false
+
+-- Nach wie vielen Sekunden, die weiße Zone auftauchen soll, nachdem eine neue Zone berechnet wurde.
+local DELAY_FOR_FORESHADOW_ZONE = 30
 
 local zoneRadius = INITIAL_ZONE_RADIUS
 local zoneCenter = INITIAL_ZONE_CENTER
@@ -77,8 +80,23 @@ local function calculateNewZone()
     nextZoneCenter = findRandomZoneCenterShiftWithinCurrentZone()
     currentDamage = currentDamage * DAMAGE_MULTIPLIER
 
-    SetGlobalVector("NextZoneCenter", nextZoneCenter)
-    SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+    SetGlobalVector("NextZoneCenter", nil)
+    SetGlobalFloat("NextZoneRadius", nil)
+
+    if DELAY_FOR_FORESHADOW_ZONE > 0 then
+        if graceTimer < DELAY_FOR_FORESHADOW_ZONE - 10 then
+            SetGlobalVector("NextZoneCenter", nextZoneCenter)
+            SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+        else
+            timer.Simple(DELAY_FOR_FORESHADOW_ZONE, function()
+                SetGlobalVector("NextZoneCenter", nextZoneCenter)
+                SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+            end)
+        end
+    else
+        SetGlobalVector("NextZoneCenter", nextZoneCenter)
+        SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+    end
 end
 
 local function isPlayerInZone(ply)
@@ -99,7 +117,9 @@ local function updateZone()
             graceTimer = graceTimer - 1
 
             if graceTimer <= 10 and graceTimer > 0 then
-                PSRNet.NotifyZone("Die Zone fängt in " .. tostring(math.floor(graceTimer)) .. " Sekunden an zu schrumpfen!")
+                local time = math.floor(graceTimer)
+                local secondsWord = time == 1 and "Sekunde" or "Sekunden"
+                PSRNet.NotifyZone("Die Zone fängt in " .. tostring(time) .. " " .. secondsWord .. " an zu schrumpfen!")
             end
         else
             gracePeriod = false
@@ -124,7 +144,9 @@ local function updateZone()
             zoneCenter = nextZoneCenter
             calculateNewZone()
 
-            PSRNet.NotifyZone("Die Zone fängt in " .. tostring(math.floor(graceTimer)) .. " Sekunden an zu schrumpfen!")
+            local time = math.floor(graceTimer)
+            local secondsWord = time == 1 and "Sekunde" or "Sekunden"
+            PSRNet.NotifyZone("Die Zone fängt in " .. tostring(time) .. " " .. secondsWord .. " an zu schrumpfen!")
         end
     end
 
@@ -137,8 +159,6 @@ local function updateZone()
         applyZoneDamage()
         damageTimer = DAMAGE_INTERVAL
     end
-
-    --print("Grace: " .. tostring(gracePeriod) .. "; Timer: " .. tostring(graceTimer) .. " | Shrinking: " .. tostring(zoneActive) .. "; Timer: " .. tostring(shrinkTimer) .. " | Radius: " .. tostring(zoneRadius) .. " | Center: " .. tostring(zoneCenter))
 end
 
 local function resetZoneSystem()

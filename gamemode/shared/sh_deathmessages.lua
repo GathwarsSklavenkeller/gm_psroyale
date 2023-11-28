@@ -81,7 +81,7 @@ local function getMessageFunc(set, messageIndex)
 end
 
 function PrepickDeathMessage(ply, attacker, dmginfo)
-    if attacker == nil or ply == attacker or dmginfo == nil or dmginfo.GetInflictor == nil then
+    if attacker == nil or ply == attacker or dmginfo == nil or dmginfo.GetInflictor == nil or attacker:GetClass() == 'worldspawn' then
         return {randomMessageIndex(SUICIDE_MESSAGES), 1, ply:Nick(), nil}
     end
 
