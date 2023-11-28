@@ -69,12 +69,12 @@ hook.Add("PostDrawTranslucentRenderables", "DrawBattleRoyaleZone", function()
         return
     end
 
+    local showZone = GetGlobalBool("ShowZone", false)
     local zoneCenter = GetGlobalVector("ZoneCenter", nil)
     local zoneRadius = GetGlobalFloat("ZoneRadius", nil)
+    local showNextZone = GetGlobalBool("ShowNextZone", false)
     local nextZoneCenter = GetGlobalVector("NextZoneCenter", nil)
     local nextZoneRadius = GetGlobalFloat("NextZoneRadius", nil)
-
-    if not zoneCenter or not zoneRadius then return end
 
     local zoneColor = Color(0, 0, 255, 100)
     local nextZoneColor = Color(255, 255, 255, 50)
@@ -82,9 +82,12 @@ hook.Add("PostDrawTranslucentRenderables", "DrawBattleRoyaleZone", function()
 
     cam.Start3D()
         render.SetColorMaterial()
-        render.DrawWireframeSphere(zoneCenter, zoneRadius, segments, segments, zoneColor, true)
+        
+        if zoneCenter and zoneRadius and showZone then
+            render.DrawWireframeSphere(zoneCenter, zoneRadius, segments, segments, zoneColor, true)
+        end
 
-        if nextZoneCenter and nextZoneRadius then
+        if nextZoneCenter and nextZoneRadius and showNextZone then
             render.DrawWireframeSphere(nextZoneCenter, nextZoneRadius, segments, segments, nextZoneColor, true)
         end
     cam.End3D()

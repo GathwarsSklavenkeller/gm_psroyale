@@ -80,6 +80,7 @@ local function calculateNewZone()
     nextZoneCenter = findRandomZoneCenterShiftWithinCurrentZone()
     currentDamage = currentDamage * DAMAGE_MULTIPLIER
 
+    SetGlobalBool("ShowNextZone", false)
     SetGlobalVector("NextZoneCenter", nil)
     SetGlobalFloat("NextZoneRadius", nil)
 
@@ -87,15 +88,18 @@ local function calculateNewZone()
         if graceTimer < DELAY_FOR_FORESHADOW_ZONE - 10 then
             SetGlobalVector("NextZoneCenter", nextZoneCenter)
             SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+            SetGlobalBool("ShowNextZone", true)
         else
             timer.Simple(DELAY_FOR_FORESHADOW_ZONE, function()
                 SetGlobalVector("NextZoneCenter", nextZoneCenter)
                 SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+                SetGlobalBool("ShowNextZone", true)
             end)
         end
     else
         SetGlobalVector("NextZoneCenter", nextZoneCenter)
         SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+        SetGlobalBool("ShowNextZone", true)
     end
 end
 
@@ -194,6 +198,7 @@ function SetZoneSystemEnabled(enabled)
         SetGlobalFloat("ZoneRadius", zoneRadius)
         SetGlobalVector("NextZoneCenter", nextZoneCenter)
         SetGlobalFloat("NextZoneRadius", nextZoneRadius)
+        SetGlobalBool("ShowZone", true)
 
         timer.Create("ZoneSystem", 1, 0, updateZone)
 
@@ -201,6 +206,8 @@ function SetZoneSystemEnabled(enabled)
     else
         timer.Remove("ZoneSystem")
 
+        SetGlobalBool("ShowZone", false)
+        SetGlobalBool("ShowNextZone", false)
         SetGlobalVector("ZoneCenter", nil)
         SetGlobalFloat("ZoneRadius", nil)
         SetGlobalVector("NextZoneCenter", nil)
