@@ -24,6 +24,13 @@ if SERVER then
             net.WriteString(message)
         net.Broadcast()
     end
+
+    util.AddNetworkString("PSR_SendStalkMessage")
+    function PSRNet.SendStalkMessage(ply, name)
+        net.Start("PSR_SendStalkMessage")
+            net.WriteString(name)
+        net.Send(ply)
+    end
 end
 
 if CLIENT then
@@ -44,6 +51,13 @@ if CLIENT then
 
     function PSRNet.OnNotifyZone(cb)
         net.Receive("PSR_NotifyZone", function()
+            local message = net.ReadString()
+            cb(message)
+        end)
+    end
+
+    function PSRNet.OnStalkMessage(cb)
+        net.Receive("PSR_SendStalkMessage", function()
             local message = net.ReadString()
             cb(message)
         end)

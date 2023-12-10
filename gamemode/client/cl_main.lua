@@ -198,3 +198,7 @@ end)
 PSRNet.OnNotifyZone(function (msg)
     chat.AddText(Color(77, 82, 209), msg)
 end)
+
+PSRNet.OnStalkMessage(function (name)
+    chat.AddText(Color(255, 0, 0), "Du stalkst: ", Color(255, 150, 0), name)
+end)

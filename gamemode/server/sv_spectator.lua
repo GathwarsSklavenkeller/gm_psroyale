@@ -19,6 +19,8 @@ local function spectatePlayer(spectator, ply)
     spectator:SpectateEntity(ply)
     spectator:SetObserverMode(OBS_MODE_IN_EYE)
 
+    PSRNet.SendStalkMessage(spectator, ply:GetName())
+
     if not spectatedPlayers[ply] then
         spectatedPlayers[ply] = {}
     end
