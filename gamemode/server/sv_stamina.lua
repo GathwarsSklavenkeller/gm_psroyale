@@ -9,6 +9,11 @@ function RefillStamina(ply)
     ply:SetNWFloat("CurrStamina", MAX_STAMINA)
 end
 
+function CancelStaminaSounds(ply)
+    ply:StopSound("low_stamina_breath")
+    ply:StopSound("player/suit_sprint.wav")
+end
+
 sound.Add({ 
     name = "low_stamina_breath",
     channel = CHAN_STATIC,

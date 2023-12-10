@@ -28,6 +28,8 @@ function Round.Start()
 
         UnmakeSpectator(ply)
         ResetFoods(ply)
+        RefillStamina(ply)
+        CancelStaminaSounds(ply)
 
         Round.Scoreboard[ply:SteamID()] = {
             name = ply:Nick(),
