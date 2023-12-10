@@ -6,6 +6,7 @@ include("sv_dropout.lua")
 include("sv_stamina.lua")
 include("sv_weapon.lua")
 include("sv_food.lua")
+include("sv_spectator.lua")
 
 concommand.Add("psr_start", function(ply, cmd, args)
     print("Starting round...")

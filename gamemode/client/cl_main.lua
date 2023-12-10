@@ -109,6 +109,10 @@ hook.Add("HUDShouldDraw", "HideDefaultHUD", function (name)
 end)
 
 hook.Add("HUDDrawTargetID", "HideDefaultHUDID", function ()
+    if LocalPlayer():Team() == TeamID.SPECTATOR then
+        return true
+    end
+
     return false
 end)
 

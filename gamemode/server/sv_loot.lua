@@ -87,9 +87,9 @@ local ATTACHMENTS = {
     "cw_attpack_mp5_barrels",
     "cw_attpack_mr96_barrels",
     "cw_attpack_sights_cqb",
-    "cw_attpack_sights_longrange",
+    --"cw_attpack_sights_longrange",
     "cw_attpack_sights_midrange",
-    "cw_attpack_sights_sniper",
+    --"cw_attpack_sights_sniper",
     "cw_attpack_suppressors"
 }
 
