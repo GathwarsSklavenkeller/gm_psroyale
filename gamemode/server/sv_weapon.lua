@@ -92,7 +92,7 @@ hook.Add("KeyPress", "Weapon_ManualPickUp", function (ply, key)
                     ent.pickingup_ply = ply
                     ply:PickupWeapon(ent)
                 end
-            elseif ent:GetClass() == "kevlar_br" then
+            elseif ent:GetClass() == "hat" then
                 ent:WearKevlar(ply)
             elseif ent.isfood == true then
                 PickupFood(ent, ply)

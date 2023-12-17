@@ -94,7 +94,7 @@ local ATTACHMENTS = {
 }
 
 local KEVLARS = {
-    "kevlar_br"
+    "hat"
 }
 
 

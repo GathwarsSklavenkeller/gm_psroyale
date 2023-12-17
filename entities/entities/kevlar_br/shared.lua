@@ -1,6 +1,0 @@
-ENT.Type = "anim"
-ENT.PrintName		= "KEVLAR BATTLE ROYALE"
-ENT.Author			= "IC4RO"
-ENT.Contact			= "none"
-ENT.Purpose			= "none"
-ENT.Instructions	= "none"
